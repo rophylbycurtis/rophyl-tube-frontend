@@ -32,6 +32,8 @@ api.interceptors.response.use(
         error.userMessage = 'Live streams cannot be downloaded while broadcasting.'
       } else if (detail.includes('does not exist') || detail.includes('not exist')) {
         error.userMessage = 'This playlist or video does not exist.'
+      } else if (detail.includes('blocking') || detail.includes('bot') || detail.includes('Sign in')) {
+        error.userMessage = 'YouTube is temporarily blocking downloads. Please try again in a few minutes.'
       } else if (detail.includes('Unable to extract')) {
         error.userMessage = 'Could not extract video info. The URL may not be supported.'
       } else if (error.response.status === 404) {
