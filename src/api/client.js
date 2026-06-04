@@ -4,7 +4,7 @@ const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 30000,
+  timeout: 60000, // 60 seconds to handle cold starts
 })
 
 // Response interceptor — clean up error messages
@@ -12,7 +12,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (!error.response) {
-      error.userMessage = 'Cannot connect to server. Make sure the backend is running.'
+      error.userMessage = error.code === 'ECONNABORTED'
+        ? 'Server is waking up, please try again in a moment...'
+        : 'Cannot connect to server. Please try again in a moment.'
     } else {
       const detail = error.response?.data?.detail || ''
 

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import Header from './components/Header'
@@ -16,6 +16,8 @@ import { useDownloadHistory } from './hooks/useDownloadHistory'
 import { getVideoInfo, getSingleVideoInfo, startDownload,
          startPlaylistDownload, getDownloadStatus, getFileUrl } from './api/client'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+
 export default function App() {
   const [loading, setLoading] = useState(false)
   const [videoInfo, setVideoInfo] = useState(null)
@@ -27,10 +29,18 @@ export default function App() {
   const [downloading, setDownloading] = useState(false)
   const [playlistJob, setPlaylistJob] = useState(null)
   const [error, setError] = useState(null)
+  const [serverWaking, setServerWaking] = useState(false)
   const pollRef = useRef(null)
   const playlistPollRef = useRef(null)
 
   const { history, addToHistory, removeFromHistory, clearHistory } = useDownloadHistory()
+
+  // Wake up the backend on app load
+  useEffect(() => {
+    fetch(`${API_URL}/health`)
+      .then(() => setServerWaking(false))
+      .catch(() => setServerWaking(false))
+  }, [])
 
   const clearError = () => setError(null)
 
@@ -140,7 +150,6 @@ export default function App() {
           if (data.status === 'done') {
             clearInterval(pollRef.current)
             setDownloading(false)
-            // Snapshot the URL immediately when done
             setDownloadUrl(getFileUrl(id))
             toast.success('Ready to download!')
           } else if (data.status === 'error') {
@@ -245,6 +254,21 @@ export default function App() {
             Paste any video, audio, or playlist URL and get it in any format.
           </p>
         </motion.div>
+
+        {/* Server waking banner */}
+        {serverWaking && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full mb-4 px-4 py-3 rounded-xl bg-brand-card
+                       border border-brand-border flex items-center gap-2"
+          >
+            <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shrink-0" />
+            <p className="text-brand-subtext text-sm">
+              Server is starting up, this may take a moment...
+            </p>
+          </motion.div>
+        )}
 
         {/* Search */}
         <SearchBar onSearch={handleSearch} loading={loading} />
