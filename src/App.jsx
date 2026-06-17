@@ -150,8 +150,17 @@ export default function App() {
           if (data.status === 'done') {
             clearInterval(pollRef.current)
             setDownloading(false)
-            setDownloadUrl(getFileUrl(id))
-            toast.success('Ready to download!')
+            const fileUrl = getFileUrl(id)
+            setDownloadUrl(fileUrl)
+            toast.success('Download complete!')
+
+            // Auto-trigger the file save
+            const link = document.createElement('a')
+            link.href = fileUrl
+            link.download = ''
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
           } else if (data.status === 'error') {
             clearInterval(pollRef.current)
             setDownloading(false)
