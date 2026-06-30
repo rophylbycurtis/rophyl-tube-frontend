@@ -259,7 +259,7 @@ export default function App() {
             Download Anything,{' '}
             <span className="text-brand-red">Instantly</span>
           </h1>
-          <p className="text-brand-subtext text-sm sm:text-base max-w-xl mx-auto px-2">
+          <p className="text-brand-subtext text-sm sm:text-base max-w-xl mx-auto px-6 text-center">
             Paste any video, audio, or playlist URL and get it in any format.
           </p>
         </motion.div>
@@ -388,11 +388,13 @@ export default function App() {
 
       </main>
 
-      <footer className="text-center text-brand-muted text-xs py-6 border-t border-brand-border mt-8 px-4 w-full">
-        Rophyl Tube Downloader · Powered by{' '}
-        <span className="text-brand-red font-semibold">Rophyl by Curtis</span>
-        {' '}· Built by{' '}
-        <a href="https://25rcodes.netlify.app" target="_blank" rel="noopener noreferrer" className="text-brand-red font-semibold hover:underline">25RCodes</a>
+      <footer className="text-center text-brand-muted text-xs py-6 border-t border-brand-border mt-8 px-6 w-full">
+        <p>Rophyl Tube Downloader</p>
+        <p className="mt-1">
+          Powered by <span className="text-brand-red font-semibold">Rophyl by Curtis</span>
+          {' '}· Built by{' '}
+          <a href="https://25rcodes.netlify.app" target="_blank" rel="noopener noreferrer" className="text-brand-red font-semibold hover:underline">25RCodes</a>
+        </p>
       </footer>
 
       <InstallPrompt />
