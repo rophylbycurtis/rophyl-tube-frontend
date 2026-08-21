@@ -392,7 +392,7 @@ export default function App() {
         <p>Rophyl Tube Downloader</p>
         <p className="mt-1">
           Powered by <span className="text-brand-red font-semibold">Rophyl by Curtis</span>
-          {' '}· Built by{' '}
+          {' '}· Built with{' '}
           <a href="https://25rcodes.netlify.app" target="_blank" rel="noopener noreferrer" className="text-brand-red font-semibold hover:underline">25RCodes</a>
         </p>
       </footer>
