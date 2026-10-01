@@ -391,9 +391,9 @@ export default function App() {
       <footer className="text-center text-brand-muted text-xs py-6 border-t border-brand-border mt-8 px-6 w-full">
         <p>Rophyl Tube Downloader</p>
         <p className="mt-1">
-          Powered by <span className="text-brand-red font-semibold">Rophyl by Curtis</span>
+          Powered by <span className="text-brand-red font-semibold">Rophylbc</span>
           {' '}· Built by{' '}
-          <a href="https://25rcodes.netlify.app" target="_blank" rel="noopener noreferrer" className="text-brand-red font-semibold hover:underline">25RCodes</a>
+          <a href="https://rophylbycurtis.github.io/portfolio/" target="_blank" rel="noopener noreferrer" className="text-brand-red font-semibold hover:underline">Curtis</a>
         </p>
       </footer>
 
